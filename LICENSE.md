@@ -1,7 +1,7 @@
 # Open Source & Privacy Notice
 
 **Project:** PDF Studio Workspace  
-**Author:** Personal Project  
+**Author:** KeRiN PaTeL  
 **Status:** Public Domain / Open Collaboration  
 
 ---
