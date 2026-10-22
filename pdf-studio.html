@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDF Studio</title>
+<style>
+:root{--ink:#172536;--muted:#718096;--line:#e4eaf0;--blue:#3978e8;--blue-soft:#edf4ff;--green:#dff5e8;--bg:#f6f8fb;--white:#fff;--danger:#c94c4c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 12px;color:var(--ink);transition:background .12s}button:hover{background:#f3f7fc}button:focus-visible,input:focus-visible{outline:3px solid #9cc1ff;outline-offset:2px}.primary{background:var(--blue);border-color:var(--blue);color:#fff}.primary:hover{background:#2867d4}.danger{color:var(--danger)}.iconbtn{padding:7px 9px;min-width:34px}.topbar{height:66px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 22px;gap:14px;position:sticky;top:0;z-index:10}.brand{display:flex;align-items:center;gap:10px;font-weight:750;font-size:18px}.logo{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--blue-soft);color:var(--blue);font-weight:900;font-size:18px}.top-actions{display:flex;gap:8px;align-items:center}.app{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:calc(100vh - 66px)}aside{background:#fff;border-right:1px solid var(--line);padding:20px 13px}.side-label{font-size:11px;font-weight:750;letter-spacing:.09em;color:#98a3b2;padding:12px 10px 7px}.tool{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;text-align:left;padding:11px 12px;color:#4d5c6d;margin:2px 0}.tool.active,.tool:hover{background:var(--blue-soft);color:#245fc5}.tool span:first-child{width:20px;text-align:center;font-size:16px}.privacy{margin:25px 5px 0;background:#f1faf5;border:1px solid #d9f0e2;padding:13px;border-radius:12px;font-size:12px;color:#47715a}.privacy strong{display:block;margin-bottom:4px;color:#285a3d}.main{min-width:0;padding:22px 24px 18px}.pagehead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:18px}.pagehead h1{font-size:23px;line-height:1.2;margin:0 0 5px;letter-spacing:-.03em}.sub{color:var(--muted);font-size:13px}.file-pill{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 11px;max-width:45%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#526174}.upload{background:#fff;border:1.5px dashed #b8c9df;border-radius:14px;padding:25px;text-align:center;margin-bottom:18px}.upload.drag{border-color:var(--blue);background:#f1f6ff}.upload .upload-icon{font-size:28px;color:var(--blue);margin-bottom:7px}.upload h2{font-size:16px;margin:0 0 4px}.upload p{margin:0 0 14px;color:var(--muted)}.workspace{display:grid;grid-template-columns:230px minmax(0,1fr);gap:16px;align-items:start}.panel{background:#fff;border:1px solid var(--line);border-radius:13px;overflow:hidden;min-width:0}.panelhead{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;border-bottom:1px solid var(--line);font-weight:700}.count{font-size:12px;color:var(--muted);font-weight:500}.thumbs{padding:10px;max-height:calc(100vh - 300px);min-height:250px;overflow:auto;display:grid;grid-template-columns:1fr;gap:10px}.thumb{border:1px solid var(--line);border-radius:9px;padding:7px;position:relative;cursor:pointer;background:#fff}.thumb.selected{border:2px solid var(--blue);padding:6px;background:#f4f8ff}.thumb.activepage{box-shadow:0 0 0 2px #cfe0ff}.thumb canvas{display:block;width:100%;height:auto;background:#f8fafc;border:1px solid #edf0f4}.thumb-foot{display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:12px;color:#64748b}.thumb input{accent-color:var(--blue)}.thumb-controls{display:flex;gap:3px}.thumb-controls button{font-size:11px;padding:2px 5px;border-radius:5px}.viewer{min-height:480px}.viewer-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line);flex-wrap:wrap}.toolbar-group{display:flex;align-items:center;gap:6px}.toolbar-group button{padding:7px 10px}.page-jump{width:52px;padding:7px;border:1px solid var(--line);border-radius:7px;text-align:center}.viewer-stage{min-height:500px;max-height:calc(100vh - 240px);overflow:auto;background:#eef2f7;display:flex;align-items:flex-start;justify-content:center;padding:25px}.canvas-wrap{position:relative;max-width:100%;background:white;box-shadow:0 2px 10px #1d2d4012}.canvas-wrap canvas{display:block;max-width:100%;height:auto}.empty-state{min-height:460px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:25px;color:var(--muted)}.empty-state .big{font-size:38px;margin-bottom:12px}.status{display:flex;justify-content:space-between;gap:12px;padding:10px 2px;color:var(--muted);font-size:12px;flex-wrap:wrap}.status strong{color:#506174;font-weight:600}.progress{height:3px;background:#e8eef7;overflow:hidden}.progress>div{height:100%;width:0;background:var(--blue);transition:width .15s}.merge-panel{display:none;margin-bottom:16px}.merge-list{padding:10px;display:grid;gap:8px}.merge-item{display:flex;align-items:center;gap:10px;padding:9px;border:1px solid var(--line);border-radius:9px}.merge-item .fname{min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.merge-item small{color:var(--muted)}.range-row{display:flex;gap:8px;margin:12px 0}.range-row input{min-width:0;flex:1;border:1px solid var(--line);border-radius:8px;padding:9px}.hidden{display:none!important}.toast{position:fixed;right:18px;bottom:18px;z-index:20;background:#172536;color:#fff;padding:12px 16px;border-radius:10px;box-shadow:0 8px 30px #0002;max-width:min(400px,calc(100vw - 36px));display:none}.modal-backdrop{position:fixed;inset:0;background:#10203066;display:none;align-items:center;justify-content:center;padding:18px;z-index:30}.modal{background:#fff;border-radius:14px;padding:22px;max-width:400px;width:100%;box-shadow:0 20px 60px #0002}.modal h3{margin:0 0 8px}.modal p{color:var(--muted)}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}.mobile-tools{display:none}
+@media(max-width:900px){.app{grid-template-columns:185px minmax(0,1fr)}.workspace{grid-template-columns:180px minmax(0,1fr)}.main{padding:18px 14px}.thumbs{max-height:calc(100vh - 290px)}.viewer-stage{padding:15px}}
+@media(max-width:650px){.topbar{padding:0 13px;height:58px}.brand{font-size:16px}.top-actions .secondary-action{display:none}.app{display:block;min-height:calc(100vh - 58px)}aside{display:none}.main{padding:15px 10px}.pagehead{align-items:center}.pagehead h1{font-size:20px}.file-pill{max-width:48%;font-size:11px}.upload{padding:20px 12px}.workspace{display:flex;flex-direction:column}.panel.thumbnails-panel{width:100%;order:2}.thumbs{grid-template-columns:repeat(3,minmax(0,1fr));max-height:220px;min-height:0}.viewer{width:100%;order:1;min-height:0}.viewer-stage{min-height:350px;max-height:60vh;padding:10px}.empty-state{min-height:330px}.viewer-toolbar{padding:8px}.toolbar-group{gap:4px}.toolbar-group button{padding:7px 8px;font-size:12px}.status{font-size:11px}.thumb-controls button{font-size:10px}.merge-item{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><div class="logo">▤</div><span>PDF Studio</span></div>
+  <div class="top-actions">
+    <button id="undoBtn" class="secondary-action" title="Undo last page operation" disabled>↶ Undo</button>
+    <button id="addFilesBtn" class="secondary-action">＋ Add PDF</button>
+    <button id="downloadBtn" class="primary" disabled>↓ Download</button>
+  </div>
+</header>
+<div class="app">
+  <aside>
+    <div class="side-label">WORKSPACE</div>
+    <button class="tool active" data-mode="view"><span>▣</span>View & select</button>
+    <button class="tool" data-mode="extract"><span>⇱</span>Extract pages</button>
+    <button class="tool" data-mode="delete"><span>▤</span>Delete pages</button>
+    <button class="tool" data-mode="reorder"><span>↕</span>Reorder pages</button>
+    <div class="side-label">DOCUMENTS</div>
+    <button class="tool" id="mergeNav"><span>⊕</span>Merge PDFs</button>
+    <button class="tool" id="chooseNav"><span>↑</span>Upload PDFs</button>
+    <div class="privacy"><strong>◈ Files stay on your device</strong>PDFs are processed locally in this browser. No document content is sent to a server.</div>
+  </aside>
+  <main class="main">
+    <div class="pagehead"><div><h1>Your PDF workspace</h1><div class="sub">A simple place to manage your documents.</div></div><div class="file-pill" id="filePill">No document open</div></div>
+    <section class="upload" id="dropzone">
+      <div class="upload-icon">⇧</div><h2>Drop your PDFs here</h2><p>or choose files from your device. Multiple PDFs are supported.</p>
+      <button class="primary" id="browseBtn">Choose PDF files</button>
+      <input type="file" id="fileInput" accept="application/pdf,.pdf" multiple hidden>
+    </section>
+    <section class="panel merge-panel" id="mergePanel">
+      <div class="panelhead"><span>Merge documents <span class="count" id="mergeCount">0 files</span></span><button id="mergeBtn" class="primary" disabled>Merge & download</button></div>
+      <div class="merge-list" id="mergeList"><div class="sub">Add two or more PDFs to set their merge order.</div></div>
+    </section>
+    <div class="workspace">
+      <section class="panel thumbnails-panel">
+        <div class="panelhead"><span>Pages</span><span class="count" id="pageCount">0 pages</span></div>
+        <div class="thumbs" id="thumbs"><div class="sub" style="padding:12px">Your page thumbnails will appear here.</div></div>
+        <div style="padding:10px;border-top:1px solid var(--line)">
+          <div class="sub" style="margin-bottom:7px">Page ranges (e.g. 1, 3-5, 8)</div>
+          <div class="range-row" style="margin:0"><input id="rangeInput" placeholder="1, 3-5" aria-label="Page ranges"><button id="rangeSelectBtn">Select</button></div>
+        </div>
+        <div style="display:flex;gap:7px;padding:10px;border-top:1px solid var(--line)">
+          <button id="extractBtn" style="flex:1" disabled>Extract</button><button id="deleteBtn" class="danger" style="flex:1" disabled>Delete</button>
+        </div>
+      </section>
+      <section class="panel viewer">
+        <div class="viewer-toolbar">
+          <div class="toolbar-group"><button id="prevBtn" class="iconbtn" title="Previous page" disabled>←</button><input id="pageInput" class="page-jump" type="number" min="1" value="1" aria-label="Current page" disabled><span class="count">/ <span id="totalPages">0</span></span><button id="nextBtn" class="iconbtn" title="Next page" disabled>→</button></div>
+          <div class="toolbar-group"><button id="zoomOut" title="Zoom out" disabled>−</button><span id="zoomLabel" class="count">Fit width</span><button id="zoomIn" title="Zoom in" disabled>＋</button><button id="fitBtn">Fit width</button></div>
+        </div>
+        <div class="progress"><div id="progressBar"></div></div>
+        <div class="viewer-stage" id="viewerStage"><div class="empty-state"><div class="big">▤</div><strong>Your document will appear here</strong><p>Upload a PDF to view pages, select them, and make changes.</p></div></div>
+      </section>
+    </div>
+    <div class="status"><span id="statusText">Ready · All processing happens locally</span><span id="statusRight">No file loaded</span></div>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal"><h3 id="modalTitle">Confirm operation</h3><p id="modalText">Continue?</p><div class="modal-actions"><button id="modalCancel">Cancel</button><button id="modalConfirm" class="primary">Continue</button></div></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const { PDFDocument } = PDFLib;
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  let doc = null, sourceBytes = null, currentFile = null, pageCount = 0, currentPage = 1, zoom = 1;
+  let selected = new Set(), lastSelected = null, undoStack = [], mergeFiles = [], mode = 'view', renderToken = 0, objectUrls = new Set();
+  const pageOrder = []; // Current page positions map to original page indices for this document.
+  let currentOrder = [];
+  const say = (msg, duration=2800) => { const t=$('toast'); t.textContent=msg; t.style.display='block'; clearTimeout(say.timer); say.timer=setTimeout(()=>t.style.display='none',duration); };
+  const setStatus = (msg, right='') => { $('statusText').textContent=msg; $('statusRight').textContent=right; };
+  const setProgress = v => $('progressBar').style.width = Math.max(0,Math.min(100,v))+'%';
+  const setMode = m => { mode=m; document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===m)); $('extractBtn').textContent=m==='extract'?'Extract selected':'Extract'; $('deleteBtn').textContent=m==='delete'?'Delete selected':'Delete'; };
+  function blobUrl(blob){ const u=URL.createObjectURL(blob); objectUrls.add(u); return u; }
+  function cleanUrls(){ objectUrls.forEach(URL.revokeObjectURL); objectUrls.clear(); }
+  function downloadBlob(blob,name){ const url=blobUrl(blob), a=document.createElement('a'); a.href=url; a.download=name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>{URL.revokeObjectURL(url);objectUrls.delete(url)},1500); }
+  function safeName(name){ return (name||'document.pdf').replace(/\.pdf$/i,'').replace(/[\\/:*?"<>|]+/g,'_'); }
+  function updateControls(){
+    const has=!!doc, n=selected.size;
+    $('downloadBtn').disabled=!has; $('undoBtn').disabled=!undoStack.length;
+    $('pageCount').textContent=pageCount+' page'+(pageCount===1?'':'s'); $('totalPages').textContent=pageCount;
+    $('pageInput').disabled=!has; $('pageInput').max=pageCount||1; $('pageInput').value=has?currentPage:1;
+    $('prevBtn').disabled=!has||currentPage<=1; $('nextBtn').disabled=!has||currentPage>=pageCount;
+    $('zoomIn').disabled=!has; $('zoomOut').disabled=!has;
+    $('extractBtn').disabled=!has||n===0; $('deleteBtn').disabled=!has||n===0||n>=pageCount;
+    $('filePill').textContent=currentFile?currentFile.name:'No document open';
+    $('statusRight').textContent=has?`${pageCount} pages · ${selected.size} selected`:'No file loaded';
+  }
+  async function readPdf(file){
+    if(!/\.pdf$/i.test(file.name) && file.type!=='application/pdf') throw new Error(file.name+': Please choose a PDF file.');
+    const bytes=await file.arrayBuffer();
+    // PDF.js validates rendering; pdf-lib validates editing capability.
+    const loading=pdfjsLib.getDocument({data:bytes.slice(0)});
+    const loaded=await loading.promise;
+    return {file,bytes,pdf:loaded,count:loaded.numPages};
+  }
+  async function openFile(file){
+    try{
+      setStatus('Opening '+file.name+'…'); setProgress(12);
+      const item=await readPdf(file);
+      if(doc) { try{await doc.destroy()}catch(e){} }
+      doc=item.pdf; sourceBytes=item.bytes; currentFile=file; pageCount=item.count; currentPage=1; zoom=1; selected.clear(); lastSelected=null; undoStack=[]; currentOrder=Array.from({length:pageCount},(_,i)=>i);
+      $('thumbs').innerHTML=''; $('viewerStage').innerHTML='<div class="empty-state"><div class="big">◌</div><strong>Rendering pages…</strong></div>';
+      updateControls(); setProgress(25);
+      await renderThumbnails(); await renderPage(); setProgress(100);
+      setStatus('Ready · PDF loaded locally',`${(file.size/1024/1024).toFixed(1)} MB`);
+      $('rangeInput').value=''; setTimeout(()=>setProgress(0),600);
+    }catch(err){
+      setProgress(0); setStatus('Could not open PDF'); say(errorMessage(err),5000);
+      $('viewerStage').innerHTML='<div class="empty-state"><div class="big">⚠</div><strong>Could not open this PDF</strong><p>'+escapeHtml(errorMessage(err))+'</p></div>';
+    }
+  }
+  function errorMessage(e){
+    const s=String(e&&e.message||e||'Unknown error');
+    if(/password|encrypted/i.test(s)) return 'This PDF may be password-protected. Please unlock it and try again.';
+    if(/Invalid PDF|Missing PDF|format/i.test(s)) return 'The file may be invalid or damaged. Please choose a valid PDF.';
+    if(/memory|allocation/i.test(s)) return 'This PDF may be too large for available browser memory. Try a smaller file.';
+    return s.length>220?s.slice(0,220)+'…':s;
+  }
+  function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  async function renderThumbnails(){
+    $('thumbs').innerHTML='';
+    for(let i=1;i<=pageCount;i++){
+      const card=document.createElement('div'); card.className='thumb'; card.dataset.page=i;
+      card.innerHTML=`<canvas aria-label="Page ${i} thumbnail"></canvas><div class="thumb-foot"><label><input type="checkbox" aria-label="Select page ${i}"> Page ${i}</label><div class="thumb-controls"><button title="Move page earlier" aria-label="Move page ${i} earlier">↑</button><button title="Move page later" aria-label="Move page ${i} later">↓</button></div></div>`;
+      const cb=card.querySelector('input'); cb.checked=selected.has(i);
+      cb.addEventListener('click',e=>{e.stopPropagation(); toggleSelect(i, e.shiftKey);});
+      card.addEventListener('click',e=>{if(e.target.closest('button')||e.target.closest('label'))return; if(e.shiftKey||e.ctrlKey||e.metaKey)toggleSelect(i,e.shiftKey);else{currentPage=i;renderPage();updateThumbStyles();}});
+      const [up,down]=card.querySelectorAll('button');
+      up.addEventListener('click',e=>{e.stopPropagation();movePage(i,-1)}); down.addEventListener('click',e=>{e.stopPropagation();movePage(i,1)});
+      $('thumbs').appendChild(card);
+      try{
+        const p=await doc.getPage(currentOrder[i-1]+1), vp=p.getViewport({scale:0.28});
+        const c=card.querySelector('canvas'), ctx=c.getContext('2d'); c.width=vp.width;c.height=vp.height;
+        await p.render({canvasContext:ctx,viewport:vp}).promise;
+      }catch(e){ /* thumbnail failure does not block document use */ }
+      setProgress(25+Math.round(60*i/pageCount));
+    }
+    updateThumbStyles();
+  }
+  async function renderPage(){
+    if(!doc||!pageCount)return;
+    const token=++renderToken, pnum=currentPage;
+    $('viewerStage').innerHTML='<div class="empty-state"><div class="big">◌</div><strong>Rendering page '+pnum+'…</strong></div>';
+    try{
+      const p=await doc.getPage(currentOrder[pnum-1]+1);
+      const stage=$('viewerStage'), base=p.getViewport({scale:1}), available=Math.max(220,stage.clientWidth-50);
+      const scale=zoom===1?Math.min(1.5,available/base.width):zoom;
+      const vp=p.getViewport({scale});
+      const wrap=document.createElement('div');wrap.className='canvas-wrap';
+      const canvas=document.createElement('canvas'); canvas.width=Math.floor(vp.width);canvas.height=Math.floor(vp.height);
+      canvas.setAttribute('aria-label',`PDF page ${pnum}`);
+      wrap.appendChild(canvas);
+      await p.render({canvasContext:canvas.getContext('2d'),viewport:vp}).promise;
+      if(token!==renderToken)return;
+      stage.innerHTML='';stage.appendChild(wrap);
+      $('zoomLabel').textContent=zoom===1?'Fit width':Math.round(zoom*100)+'%';
+      $('pageInput').value=currentPage; updateThumbStyles(); updateControls();
+    }catch(e){if(token===renderToken){$('viewerStage').innerHTML='<div class="empty-state"><strong>Page preview unavailable</strong><p>'+escapeHtml(errorMessage(e))+'</p></div>';}}
+  }
+  function updateThumbStyles(){
+    document.querySelectorAll('.thumb').forEach(el=>{const n=Number(el.dataset.page);el.classList.toggle('selected',selected.has(n));el.classList.toggle('activepage',n===currentPage);const cb=el.querySelector('input');if(cb)cb.checked=selected.has(n);});
+    updateControls();
+  }
+  function toggleSelect(n,shift){
+    if(shift&&lastSelected!==null){const lo=Math.min(n,lastSelected),hi=Math.max(n,lastSelected);for(let i=lo;i<=hi;i++)selected.add(i);}
+    else if(selected.has(n))selected.delete(n);else selected.add(n);
+    lastSelected=n;updateThumbStyles();
+  }
+  function parseRanges(value){
+    const nums=new Set();
+    for(const raw of value.split(',')){
+      const s=raw.trim();if(!s)continue;
+      const m=s.match(/^(\d+)\s*(?:-\s*(\d+))?$/);if(!m)throw new Error('Use page ranges like 1, 3-5, 8.');
+      let a=Number(m[1]),b=m[2]?Number(m[2]):a;
+      if(a<1||b<a||b>pageCount)throw new Error(`Page range ${s} is outside 1–${pageCount}.`);
+      for(let i=a;i<=b;i++)nums.add(i);
+    }
+    if(!nums.size)throw new Error('Enter at least one page number or range.');
+    return [...nums].sort((a,b)=>a-b);
+  }
+  function snapshot(){return {bytes:sourceBytes.slice(0),name:currentFile.name,order:[...currentOrder],selected:[...selected]};}
+  function pushUndo(){undoStack.push(snapshot());if(undoStack.length>10)undoStack.shift();updateControls();}
+  async function makePdf(indices,name){
+    setStatus('Processing PDF…');setProgress(15);
+    const src=await PDFDocument.load(sourceBytes,{ignoreEncryption:false});
+    const out=await PDFDocument.create();
+    const copied=await out.copyPages(src,indices);
+    copied.forEach(p=>out.addPage(p));
+    setProgress(75);
+    const bytes=await out.save();
+    downloadBlob(new Blob([bytes],{type:'application/pdf'}),name);
+    setProgress(100);setStatus('Export complete · File downloaded',name);setTimeout(()=>setProgress(0),800);
+  }
+  async function applyPageOrder(newOrder){
+    try{
+      pushUndo();setStatus('Applying page order…');setProgress(15);
+      const src=await PDFDocument.load(sourceBytes);
+      const out=await PDFDocument.create();
+      const copied=await out.copyPages(src,newOrder);
+      copied.forEach(p=>out.addPage(p));
+      sourceBytes=await out.save(); currentOrder=Array.from({length:newOrder.length},(_,i)=>i);
+      // Re-open from the updated bytes so all future rendering uses the new real PDF.
+      const loading=pdfjsLib.getDocument({data:sourceBytes.slice(0)}), newDoc=await loading.promise;
+      try{await doc.destroy()}catch(e){} doc=newDoc;pageCount=newOrder.length;
+      selected.clear();currentPage=Math.min(currentPage,pageCount);setProgress(70);
+      await renderThumbnails();await renderPage();setProgress(100);setStatus('Changes applied locally','Unsaved changes');say('Page changes applied.');
+      setTimeout(()=>setProgress(0),700);
+    }catch(e){setProgress(0);say('Could not modify PDF: '+errorMessage(e),5000);setStatus('Operation failed');}
+  }
+  function confirmAction(title,text,action,button='Continue'){
+    $('modalTitle').textContent=title;$('modalText').textContent=text;$('modalConfirm').textContent=button;$('modalBackdrop').style.display='flex';
+    const close=()=>{$('modalBackdrop').style.display='none';$('modalConfirm').removeEventListener('click',yes);$('modalCancel').removeEventListener('click',no);};
+    const yes=()=>{close();action();},no=close;
+    $('modalConfirm').addEventListener('click',yes);$('modalCancel').addEventListener('click',no);
+  }
+  async function extractSelected(){
+    if(!doc||!selected.size)return;
+    const indices=[...selected].sort((a,b)=>a-b).map(n=>currentOrder[n-1]);
+    try{await makePdf(indices,safeName(currentFile.name)+'-extracted.pdf');say('Extracted pages downloaded.');}
+    catch(e){setProgress(0);say('Extraction failed: '+errorMessage(e),5000);setStatus('Operation failed');}
+  }
+  async function deleteSelected(){
+    if(!doc||!selected.size)return;
+    if(selected.size>=pageCount){say('A PDF must contain at least one page.');return;}
+    confirmAction('Delete selected pages?',`This permanently removes ${selected.size} selected page(s) from the working copy. The original file on disk will not be overwritten.`,async()=>{
+      const remove=new Set([...selected].map(n=>currentOrder[n-1]));
+      const order=currentOrder.filter(i=>!remove.has(i));
+      await applyPageOrder(order);
+    },'Delete pages');
+  }
+  async function movePage(n,delta){
+    const target=n-1+delta;if(target<0||target>=pageCount)return;
+    const order=[...currentOrder];[order[n-1],order[target]]=[order[target],order[n-1]];
+    const oldPage=currentPage;
+    await applyPageOrder(order);currentPage=target+1;await renderPage();
+  }
+  async function undo(){
+    const s=undoStack.pop();if(!s)return;
+    try{
+      const loading=pdfjsLib.getDocument({data:s.bytes.slice(0)}), newDoc=await loading.promise;
+      try{await doc.destroy()}catch(e){} doc=newDoc;sourceBytes=s.bytes;currentFile=new File([s.bytes],s.name,{type:'application/pdf'});pageCount=doc.numPages;currentOrder=[...s.order];selected=new Set(s.selected);currentPage=Math.min(currentPage,pageCount);
+      await renderThumbnails();await renderPage();setStatus('Undo complete','Changes restored');updateControls();
+    }catch(e){say('Undo failed: '+errorMessage(e));}
+  }
+  function refreshMerge(){
+    $('mergeCount').textContent=mergeFiles.length+' files';$('mergeBtn').disabled=mergeFiles.length<2;
+    $('mergeList').innerHTML='';
+    if(!mergeFiles.length){$('mergeList').innerHTML='<div class="sub">Add two or more PDFs to set their merge order.</div>';return;}
+    mergeFiles.forEach((f,i)=>{
+      const el=document.createElement('div');el.className='merge-item';
+      el.innerHTML=`<span style="color:#8b9bb0">⠿</span><div class="fname"><strong>${escapeHtml(f.name)}</strong><br><small>${f.count} pages · ${(f.file.size/1024/1024).toFixed(1)} MB</small></div><button data-up="${i}" title="Move earlier" ${i===0?'disabled':''}>↑</button><button data-down="${i}" title="Move later" ${i===mergeFiles.length-1?'disabled':''}>↓</button><button data-remove="${i}" class="danger" title="Remove PDF">×</button>`;
+      el.querySelector('[data-up]')?.addEventListener('click',()=>{[mergeFiles[i-1],mergeFiles[i]]=[mergeFiles[i],mergeFiles[i-1]];refreshMerge();});
+      el.querySelector('[data-down]')?.addEventListener('click',()=>{[mergeFiles[i+1],mergeFiles[i]]=[mergeFiles[i],mergeFiles[i+1]];refreshMerge();});
+      el.querySelector('[data-remove]')?.addEventListener('click',()=>{mergeFiles.splice(i,1);refreshMerge();});
+      $('mergeList').appendChild(el);
+    });
+  }
+  async function addFiles(files){
+    const arr=[...files];if(!arr.length)return;
+    const pdfs=arr.filter(f=>/\.pdf$/i.test(f.name)||f.type==='application/pdf');
+    if(pdfs.length!==arr.length)say('Only PDF files are supported. Non-PDF files were skipped.');
+    if(!pdfs.length)return;
+    // A single newly selected PDF opens in the viewer; multiple files also populate merge list.
+    if(pdfs.length===1 && !doc){await openFile(pdfs[0]);}
+    else if(pdfs.length===1 && currentFile && pdfs[0]===currentFile){/* already open */}
+    for(const file of pdfs){
+      if(mergeFiles.some(x=>x.file.name===file.name&&x.file.size===file.size))continue;
+      try{const item=await readPdf(file);mergeFiles.push(item);}
+      catch(e){say(errorMessage(e),5000);}
+    }
+    refreshMerge();
+    if(pdfs.length>1){$('mergePanel').style.display='block';$('mergePanel').scrollIntoView({behavior:'smooth',block:'nearest'});}
+    if(!doc && mergeFiles.length) await openFile(mergeFiles[0].file);
+  }
+  async function mergePdfs(){
+    if(mergeFiles.length<2)return;
+    try{
+      setStatus('Merging PDFs locally…');setProgress(10);
+      const out=await PDFDocument.create();
+      for(let i=0;i<mergeFiles.length;i++){
+        const f=mergeFiles[i];setStatus(`Merging ${i+1} of ${mergeFiles.length}: ${f.file.name}`);
+        const src=await PDFDocument.load(f.bytes);const pages=await out.copyPages(src,src.getPageIndices());pages.forEach(p=>out.addPage(p));
+        setProgress(10+Math.round(80*(i+1)/mergeFiles.length));
+      }
+      const bytes=await out.save();downloadBlob(new Blob([bytes],{type:'application/pdf'}),'merged-document.pdf');
+      setProgress(100);setStatus('Merge complete · File downloaded',`${out.getPageCount()} pages`);say('Merged PDF downloaded.');
+      setTimeout(()=>setProgress(0),900);
+    }catch(e){setProgress(0);setStatus('Merge failed');say('Could not merge PDFs. A file may be encrypted or damaged. '+errorMessage(e),5500);}
+  }
+  $('browseBtn').onclick=()=>$('fileInput').click();
+  $('addFilesBtn').onclick=()=>$('fileInput').click();
+  $('chooseNav').onclick=()=>$('fileInput').click();
+  $('mergeNav').onclick=()=>{$('mergePanel').style.display=$('mergePanel').style.display==='block'?'none':'block';$('mergePanel').scrollIntoView({behavior:'smooth',block:'nearest'});};
+  $('fileInput').addEventListener('change',e=>{addFiles(e.target.files);e.target.value='';});
+  const dz=$('dropzone');
+  ['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('drag');}));
+  ['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('drag');}));
+  dz.addEventListener('drop',e=>addFiles(e.dataTransfer.files));
+  document.addEventListener('dragover',e=>e.preventDefault());
+  document.addEventListener('drop',e=>{if(!e.target.closest('#dropzone'))e.preventDefault();});
+  document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{setMode(b.dataset.mode);say(({view:'Select pages by clicking thumbnails. Use Shift-click for a range.',extract:'Select pages, then choose Extract.',delete:'Select pages, then choose Delete.',reorder:'Use ↑ and ↓ on a thumbnail to reorder pages.'})[mode]);}));
+  $('prevBtn').onclick=()=>{if(currentPage>1){currentPage--;renderPage();}};
+  $('nextBtn').onclick=()=>{if(currentPage<pageCount){currentPage++;renderPage();}};
+  $('pageInput').addEventListener('change',()=>{const n=Number($('pageInput').value);if(n>=1&&n<=pageCount){currentPage=n;renderPage();}else $('pageInput').value=currentPage;});
+  $('zoomIn').onclick=()=>{zoom=Math.min(3,zoom===1?1.25:zoom+0.25);renderPage();};
+  $('zoomOut').onclick=()=>{zoom=Math.max(.5,zoom===1?.75:zoom-.25);renderPage();};
+  $('fitBtn').onclick=()=>{zoom=1;renderPage();};
+  $('rangeSelectBtn').onclick=()=>{try{selected=new Set(parseRanges($('rangeInput').value));updateThumbStyles();say(selected.size+' page(s) selected.');}catch(e){say(e.message);}};
+  $('extractBtn').onclick=extractSelected;
+  $('deleteBtn').onclick=deleteSelected;
+  $('undoBtn').onclick=undo;
+  $('downloadBtn').onclick=()=>{if(!sourceBytes)return;downloadBlob(new Blob([sourceBytes],{type:'application/pdf'}),safeName(currentFile.name)+'-edited.pdf');say('Working PDF downloaded.');};
+  $('mergeBtn').onclick=mergePdfs;
+  window.addEventListener('resize',()=>{if(doc)renderPage();});
+  window.addEventListener('beforeunload',()=>{cleanUrls();if(doc)doc.destroy();});
+  updateControls();
+})();
+</script>
+</body>
+</html>
