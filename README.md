@@ -70,4 +70,4 @@ Contributions are always welcome! If you want to add a feature or fix a bug:
 
  ---
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License. See `LICENSE.txt` for more information.
