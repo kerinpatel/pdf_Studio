@@ -1,1 +1,21 @@
+=============================================================================
+                          PDF Studio - Public Domain Notice
+=============================================================================
 
+This is a personal, open-source project created with user privacy in mind. 
+All PDF processing happens strictly on your local machine.
+
+Because this project is built for the public good, it is dedicated to the 
+public domain. You are entirely free to use, copy, modify, merge, or distribute 
+this software for any purpose.
+
+-----------------------------------------------------------------------------
+🤝 WE WELCOME CONTRIBUTIONS & FEEDBACK!
+-----------------------------------------------------------------------------
+This project thrives on community collaboration. You are highly encouraged to:
+* 🛠️ Contribute code and suggest new features.
+* 🐛 Report bugs or issues by opening a ticket in the repository.
+* 💬 Provide open feedback to help make the application better and safer.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED. Enjoy using the workspace safely and securely!
